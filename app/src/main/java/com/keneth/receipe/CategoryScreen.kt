@@ -47,7 +47,7 @@ fun CategoriesScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun CategoryList(categories: List<Category>) {
-    LazyVerticalGrid(GridCells.Fixed(2), modifier = Modifier.fillMaxSize()) {
+    LazyVerticalGrid(GridCells.Fixed(3), modifier = Modifier.fillMaxSize()) {
         items(categories.size) { index ->
             println(categories[index])
             println(categories.size)
@@ -61,8 +61,8 @@ fun CategoryItem(category: Category) {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Card(
             modifier = Modifier.padding(8.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp), // Material 3 elevation
-            colors = CardDefaults.cardColors(containerColor = Color.White) // Material 3 background
+            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.White)
         ) {
 
             Image(
@@ -83,6 +83,15 @@ fun CategoryItem(category: Category) {
                 ),
                 modifier = Modifier.align(Alignment.CenterHorizontally).padding( 3.dp)
             )
+//            Text(
+//                text = category.strCategoryDescription,
+//                color = Color.Black,
+//                style = TextStyle(
+//                    fontSize = 20.sp,
+//                    fontWeight = FontWeight.Bold
+//                ),
+//                modifier = Modifier.align(Alignment.CenterHorizontally).padding( 3.dp)
+//            )
         }
     }
 
