@@ -1,6 +1,7 @@
 package com.keneth.receipe
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -27,10 +28,11 @@ import coil.compose.rememberAsyncImagePainter
 
 
 @Composable
-fun CategoriesScreen(modifier: Modifier = Modifier) {
+fun CategoriesScreen(modifier: Modifier = Modifier,
+                     viewState: MainVewModel.CategoriesState,
+                     navigateToCategoryDetails: (Category) -> Unit) {
 
-    val categoryViewModel: MainVewModel = viewModel()
-    val viewState by categoryViewModel.categoriesState
+
 
     Box(modifier = modifier.fillMaxSize()) {
         if (viewState.isLoading) {
@@ -39,26 +41,33 @@ fun CategoriesScreen(modifier: Modifier = Modifier) {
             Text(text = viewState.error!!, modifier = modifier.align(Alignment.Center))
         } else {
             //display categories
-            CategoryList(categories = viewState.categoriesList)
+            CategoryList(categories = viewState.categoriesList,navigateToCategoryDetails)
         }
     }
 }
 
 
 @Composable
-fun CategoryList(categories: List<Category>) {
+fun CategoryList(categories: List<Category>, navigateToCategoryDetails: (Category) -> Unit) {
     LazyVerticalGrid(GridCells.Fixed(3), modifier = Modifier.fillMaxSize()) {
         items(categories.size) { index ->
             println(categories[index])
             println(categories.size)
-            CategoryItem(category = categories[index])
+            CategoryItem(category = categories[index],navigateToCategoryDetails)
         }
     }
 }
 
 @Composable
-fun CategoryItem(category: Category) {
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+fun CategoryItem(
+    category: Category,
+    navigateToCategoryDetails: (Category) -> Unit
+
+) {
+    Column(modifier = Modifier.fillMaxSize().clickable { navigateToCategoryDetails(category) }
+
+
+        , horizontalAlignment = Alignment.CenterHorizontally) {
         Card(
             modifier = Modifier.padding(8.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
